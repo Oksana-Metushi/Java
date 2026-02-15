@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{TITLE}}</title>
+  <style>
+    body { font-family: sans-serif; min-height: 100vh; margin: 0; background: #0f172a; color: #f1f5f9; display: flex; align-items: center; justify-content: center; }
+    .panel { max-width: 400px; width: 100%; padding: 2rem; text-align: center; }
+    .msg-success { margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(34,197,94,0.2); color: #86efac; border-radius: 8px; font-size: 0.875rem; }
+    .msg-error { margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(239,68,68,0.2); color: #fca5a5; border-radius: 8px; font-size: 0.875rem; }
+    h1 { margin-top: 1.5rem; font-size: 1.5rem; }
+    label { display: block; text-align: left; margin-top: 1rem; font-size: 0.75rem; color: rgba(255,255,255,0.9); }
+    input { width: 100%; padding: 0.75rem 1rem; border-radius: 999px; border: none; background: rgba(255,255,255,0.95); color: #0f172a; box-sizing: border-box; margin-top: 0.25rem; }
+    button { margin-top: 1rem; width: 100%; padding: 0.75rem 1rem; border-radius: 999px; border: none; background: #f97316; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; }
+    button:hover { background: #ea580c; }
+    .demo { margin-top: 1rem; font-size: 0.75rem; color: #94a3b8; }
+    a { color: #93c5fd; }
+  </style>
+</head>
+<body>
+
+<div class="panel">
+  <img src="/assets/images/logo.png" alt="Logo" style="max-width: 120px; height: auto;"/>
+
+  <h1>Login</h1>
+
+  {{MESSAGE_HTML}}
+  {{ERROR_HTML}}
+
+  <form method="post" action="/login" style="margin-top: 1.5rem;">
+    <label>Username</label>
+    <input name="username" placeholder="student1" autocomplete="username"/>
+
+    <label>Password</label>
+    <input name="password" type="password" placeholder="student123" autocomplete="current-password"/>
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p class="demo">Demo: student1/student123 | librarian1/lib123 | admin/admin123</p>
+
+  <p style="margin-top: 1rem; font-size: 0.875rem;">New student? <a href="/register">Sign up</a></p>
+</div>
+
+</body>
+</html>

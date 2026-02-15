@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Student</title>
+  <style>
+    body{font-family:sans-serif;min-height:100vh;margin:0;background:#0f172a;color:#f1f5f9;}
+    .mx-auto{margin-left:auto;margin-right:auto;}
+    .max-w-5xl{max-width:64rem;}
+    .px-6{padding-left:1.5rem;padding-right:1.5rem;}
+    .py-10{padding-top:2.5rem;padding-bottom:2.5rem;}
+    .mb-6,.mt-6{margin-bottom:1.5rem;}.mt-6{margin-top:1.5rem;}
+    .mt-3,.mt-4{margin-top:0.75rem;}.mt-4{margin-top:1rem;}
+    .flex{display:flex;}.flex-col{flex-direction:column;}
+    .gap-2,.gap-3,.gap-4{gap:0.5rem;}.gap-3{gap:0.75rem;}.gap-4{gap:1rem;}
+    .items-center{align-items:center;}
+    .justify-between{justify-content:space-between;}
+    .text-xl,.text-2xl,.text-3xl{font-size:1.25rem;}.text-3xl{font-size:1.875rem;}
+    .text-sm,.text-xs{font-size:0.875rem;}.text-xs{font-size:0.75rem;}
+    .font-semibold{font-weight:600;}
+    .rounded-full{border-radius:9999px;}
+    .rounded-xl{border-radius:0.75rem;}
+    .rounded-2xl{border-radius:1rem;}
+    .border{border:1px solid;}
+    .border-slate-800,.border-slate-900{border-color:#1e293b;}
+    .bg-slate-900\/40{background:rgba(15,23,42,0.4);}
+    .bg-slate-950{background:#0f172a;}
+    .p-6{padding:1.5rem;}
+    .px-3,.px-4{padding-left:0.75rem;padding-right:0.75rem;}.px-4{padding-left:1rem;padding-right:1rem;}
+    .py-1,.py-2,.py-3{padding-top:0.25rem;padding-bottom:0.25rem;}.py-2{padding-top:0.5rem;padding-bottom:0.5rem;}.py-3{padding-top:0.75rem;padding-bottom:0.75rem;}
+    .pr-3{padding-right:0.75rem;}
+    .text-slate-300,.text-slate-400{color:#94a3b8;}.text-slate-400{color:#64748b;}
+    .text-slate-100{color:#f1f5f9;}
+    .w-full{width:100%;}
+    .grid{display:grid;}
+    .grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr));}
+    table{width:100%;border-collapse:collapse;}
+    th,td{text-align:left;}
+    .tracking-tight{letter-spacing:-0.025em;}
+    .uppercase{text-transform:uppercase;}
+    input,select{background:#0f172a;border:1px solid #1e293b;color:#e2e8f0;padding:0.5rem 1rem;border-radius:0.75rem;}
+    button{background:#2563eb;color:white;padding:0.5rem 1rem;border-radius:0.75rem;border:none;cursor:pointer;font-weight:600;}
+    button:hover{background:#3b82f6;}
+    .bg-slate-100{background:#e2e8f0;}
+    .text-slate-900{color:#0f172a;}
+    a{color:#93c5fd;}
+    #pageMsg .rounded-xl{display:inline-block;margin-top:1rem;padding:0.75rem 1rem;background:rgba(6,78,59,0.4);border:1px solid rgba(5,150,105,0.3);border-radius:0.75rem;color:#a7f3d0;}
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+
+<div class="mx-auto max-w-5xl px-6 py-10">
+
+  <!-- Navbar -->
+  <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex items-center gap-3">
+      <div class="text-xl font-semibold tracking-tight">Library</div>
+      <span class="inline-flex items-center rounded-full border border-slate-800 bg-slate-900/40 px-3 py-1 text-xs text-slate-300">
+        <span id="navUsername">...</span> • <span id="navRole">...</span>
+      </span>
+    </div>
+    <div class="text-sm text-slate-300">
+      <a class="hover:text-white underline-offset-4 hover:underline" href="/dashboard">Dashboard</a>
+      <span class="mx-2 text-slate-600">|</span>
+      <a class="hover:text-white underline-offset-4 hover:underline" href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <h1 class="text-3xl font-semibold tracking-tight">Student Dashboard</h1>
+
+  <div id="pageMsg"></div>
+
+  <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+    <!-- Search -->
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+      <h2 class="text-lg font-semibold">Search Books</h2>
+      <form class="mt-3 flex gap-2" method="get" action="/student">
+        <input class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               id="searchInput" name="q" placeholder="title or author" value=""/>
+        <button class="rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-500" type="submit">
+          Search
+        </button>
+      </form>
+    </div>
+
+    <!-- Borrow/Return -->
+    <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+      <h2 class="text-lg font-semibold">Borrow / Return</h2>
+      <div class="mt-3 grid gap-4">
+        <form class="flex gap-2" method="post" action="/student/borrow">
+          <input class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 name="bookId" placeholder="book id"/>
+          <button class="rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-500" type="submit">
+            Borrow
+          </button>
+        </form>
+
+        <form class="flex gap-2" method="post" action="/student/return">
+          <input class="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 name="bookId" placeholder="book id"/>
+          <button class="rounded-xl bg-slate-100 px-4 py-2 font-semibold text-slate-900 hover:bg-white" type="submit">
+            Return
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Books -->
+  <div class="mt-4 rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 class="text-lg font-semibold">Books</h2>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-400">Sort</span>
+        <select id="booksSortStudent"
+                class="rounded-xl border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="default" selected>Default</option>
+          <option value="title">Title (Selection Sort)</option>
+          <option value="author">Author (Bubble Sort)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-3 overflow-x-auto">
+      <table id="booksTableStudent" class="w-full text-sm">
+        <thead class="text-left text-xs uppercase tracking-wide text-slate-400">
+          <tr class="border-b border-slate-800">
+            <th class="py-3 pr-3">ID</th>
+            <th class="py-3 pr-3">Title</th>
+            <th class="py-3 pr-3">Author</th>
+            <th class="py-3">Available</th>
+          </tr>
+        </thead>
+        <tbody id="booksBodyStudent"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Loans -->
+  <div class="mt-4 rounded-2xl border border-slate-800 bg-slate-900/40 p-6">
+    <h2 class="text-lg font-semibold">My Loans</h2>
+    <div class="mt-3 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="text-left text-xs uppercase tracking-wide text-slate-400">
+          <tr class="border-b border-slate-800">
+            <th class="py-3 pr-3">ID</th>
+            <th class="py-3 pr-3">Book ID</th>
+            <th class="py-3 pr-3">Loan Date</th>
+            <th class="py-3">Return Date</th>
+          </tr>
+        </thead>
+        <tbody id="loansBodyStudent"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function esc(s){
+  return String(s == null ? "" : s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll("\"","&quot;")
+    .replaceAll("'","&#39;");
+}
+
+async function apiGet(url){
+  const res = await fetch(url, { credentials: "same-origin" });
+  if(res.status === 401){
+    window.location.href = "/login";
+    return null;
+  }
+  return await res.json();
+}
+
+function showMsgFromUrl(){
+  const msg = new URLSearchParams(window.location.search).get("msg");
+  const el = document.getElementById("pageMsg");
+  if(!el) return;
+  if(!msg){ el.innerHTML = ""; return; }
+  el.innerHTML =
+    "<div class='mt-4 rounded-xl border border-emerald-900/60 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-100'>"
+    + esc(msg) +
+    "</div>";
+}
+
+function setSearchFromUrl(){
+  const q = new URLSearchParams(window.location.search).get("q") || "";
+  const input = document.getElementById("searchInput");
+  if(input) input.value = q;
+  return q;
+}
+
+function selectionSortBooksByTitle(arr){
+  for(let i=0;i<arr.length;i++){
+    let min=i;
+    for(let j=i+1;j<arr.length;j++){
+      const a = (arr[j].title||"").toLowerCase();
+      const b = (arr[min].title||"").toLowerCase();
+      if(a < b) min=j;
+    }
+    const tmp=arr[i]; arr[i]=arr[min]; arr[min]=tmp;
+  }
+}
+
+function bubbleSortBooksByAuthor(arr){
+  for(let i=0;i<arr.length;i++){
+    for(let j=0;j<arr.length-1-i;j++){
+      const a = (arr[j].author||"").toLowerCase();
+      const b = (arr[j+1].author||"").toLowerCase();
+      if(a > b){
+        const tmp=arr[j]; arr[j]=arr[j+1]; arr[j+1]=tmp;
+      }
+    }
+  }
+}
+
+function renderBooksRows(tbody, books){
+  if(!tbody) return;
+  if(!books || books.length === 0){
+    tbody.innerHTML = "<tr class='border-b border-slate-900'><td class='py-3 text-slate-400' colspan='4'>No books.</td></tr>";
+    return;
+  }
+  let html = "";
+  for(let i=0;i<books.length;i++){
+    const b = books[i];
+    html += "<tr class='border-b border-slate-900'>"
+      + "<td class='py-3 pr-3 text-slate-300'>" + esc(b.id) + "</td>"
+      + "<td class='py-3 pr-3 font-medium text-slate-100'>" + esc(b.title) + "</td>"
+      + "<td class='py-3 pr-3 text-slate-300'>" + esc(b.author) + "</td>"
+      + "<td class='py-3 text-slate-300'>" + esc(b.availableCopies) + "/" + esc(b.totalCopies) + "</td>"
+      + "</tr>";
+  }
+  tbody.innerHTML = html;
+}
+
+function renderLoansRows(tbody, loans){
+  if(!tbody) return;
+  if(!loans || loans.length === 0){
+    tbody.innerHTML = "<tr class='border-b border-slate-900'><td class='py-3 text-slate-400' colspan='4'>No loans.</td></tr>";
+    return;
+  }
+  let html = "";
+  for(let i=0;i<loans.length;i++){
+    const l = loans[i];
+    html += "<tr class='border-b border-slate-900'>"
+      + "<td class='py-3 pr-3 text-slate-300'>" + esc(l.id) + "</td>"
+      + "<td class='py-3 pr-3 text-slate-300'>" + esc(l.bookId) + "</td>"
+      + "<td class='py-3 pr-3 text-slate-300'>" + esc(l.loanDate) + "</td>"
+      + "<td class='py-3 text-slate-300'>" + esc(l.returnDate == null ? "-" : l.returnDate) + "</td>"
+      + "</tr>";
+  }
+  tbody.innerHTML = html;
+}
+
+document.addEventListener("DOMContentLoaded", async function(){
+  showMsgFromUrl();
+  const q = setSearchFromUrl();
+
+  const me = await apiGet("/api/me");
+  if(!me) return;
+  const uEl = document.getElementById("navUsername");
+  const rEl = document.getElementById("navRole");
+  if(uEl) uEl.textContent = me.username || "";
+  if(rEl) rEl.textContent = me.role || "";
+
+  const booksBody = document.getElementById("booksBodyStudent");
+  const loansBody = document.getElementById("loansBodyStudent");
+  const books = await apiGet("/api/student/books?q=" + encodeURIComponent(q || ""));
+  const loans = await apiGet("/api/student/loans");
+  if(!books || !loans) return;
+
+  const originalBooks = books.slice(); // keep default order
+  renderBooksRows(booksBody, originalBooks);
+  renderLoansRows(loansBody, loans);
+
+  const sel = document.getElementById("booksSortStudent");
+  if(sel){
+    sel.addEventListener("change", function(){
+      const v = sel.value;
+      if(v === "default"){
+        renderBooksRows(booksBody, originalBooks);
+        return;
+      }
+      const copy = originalBooks.slice();
+      if(v === "title") selectionSortBooksByTitle(copy);
+      else if(v === "author") bubbleSortBooksByAuthor(copy);
+      renderBooksRows(booksBody, copy);
+    });
+  }
+});
+</script>
+
+</body>
+</html>
+
